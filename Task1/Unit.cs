@@ -14,6 +14,7 @@ namespace Task1
         protected int atkRange;
         protected string team;
         protected string symbol;
+        protected string name;
 
         public int XPos { get => xPos; set => xPos = value; }
         public int YPos { get => yPos; set => yPos = value; }
@@ -21,17 +22,18 @@ namespace Task1
         public string Team { get => team; set => team = value; }
         public int HP { get => hP; set => hP = value; }
 
-        public Unit(int xPos, int yPos, int maxHP, int HP, int speed, int attack, int atkRange, string team, string symbol)
+        public Unit(int xPos, int yPos, int maxHP, int HP, int speed, int attack, int atkRange, string team, string symbol, string name)
         {
-            this.XPos = xPos;
-            this.YPos = yPos;
+            this.xPos = xPos;
+            this.yPos = yPos;
             this.maxHP = maxHP;
             this.HP = HP;
             this.speed = speed;
             this.attack = attack;
             this.atkRange = atkRange;
-            this.Team = team;
-            this.Symbol = symbol;
+            this.team = team;
+            this.symbol = symbol;
+            this.name = name;
         }
 
         public abstract void Attack();

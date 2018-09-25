@@ -4,7 +4,7 @@ namespace Task1
 {
     public class MeleeUnit : Unit
     {
-        public MeleeUnit(int xPos, int yPos, int HP, int maxHP, int speed, int attack, int atkRange, string team, string symbol) : base(xPos, yPos, HP, maxHP, speed, attack, atkRange, team, symbol)
+        public MeleeUnit(int xPos, int yPos, int HP, int maxHP, int speed, int attack, int atkRange, string team, string symbol, string name) : base(xPos, yPos, HP, maxHP, speed, attack, atkRange, team, symbol, name)
         {
 
         }
@@ -43,7 +43,7 @@ namespace Task1
             {
                 Symbol = "Dead";
             }
-            return Symbol + ", " + Team + ", " + XPos + ", " + YPos + ", "  + HP;
+            return name+ ", " + symbol + ", " + team + ", " + xPos + ", " + yPos + ", "  + HP;
         }
     }
 }

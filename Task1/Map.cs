@@ -30,11 +30,11 @@ namespace Task1
 
                 if (teamRand == 0)
                 {
-                    units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "F");
+                    units[i] = new MeleeUnit(x, y, 100, 100, 1, 10, 5, Teams().ToLower(), "F", "Melee");
                 }
                 if (teamRand == 1)
                 {
-                    units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W");
+                    units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
                 }
                 mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
             }
@@ -88,49 +88,50 @@ namespace Task1
                     
                 }
 
-                //if(units[i].HP <= 25 && units[i].isDead() == false) //units running away below 25%
-                //{
-                //    int choice = rand.Next(0, 4);
+                if (units[i].HP <= 25 && units[i].isDead() == false) //units running away below 25%
+                {
+                    int choice = rand.Next(0, 4);
 
-                //    if (units[i].XPos != 19 && units[i].YPos != 19 && units[i].XPos != 0 && units[i].YPos != 0)
-                //    {
-                //        switch (choice)
-                //        {
-                //            case 0:
-                //                {
-                //                    units[i].updatePos("d");
-                //                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
-                //                    mapArr[units[i].XPos - 1, units[i].YPos] = ".";
+                    if (units[i].XPos != 19 && units[i].YPos != 19 && units[i].XPos != 0 && units[i].YPos != 0)
+                    {
+                        switch (choice)
+                        {
+                            case 0:
+                                {
+                                    units[i].updatePos("d");
+                                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
+                                    mapArr[units[i].XPos - 1, units[i].YPos] = ".";
 
-                //                }
-                //                break;
-                //            case 1:
-                //                {
-                //                    units[i].updatePos("a");
-                //                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
-                //                    mapArr[units[i].XPos + 1, units[i].YPos] = ".";
+                                }
+                                break;
+                            case 1:
+                                {
+                                    units[i].updatePos("a");
+                                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
+                                    mapArr[units[i].XPos + 1, units[i].YPos] = ".";
 
-                //                }
-                //                break;
-                //            case 2:
-                //                {
-                //                    units[i].updatePos("s");
-                //                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
-                //                    mapArr[units[i].XPos, units[i].YPos - 1] = ".";
-                //                }
-                //                break;
-                //            case 3:
-                //                {
-                //                    units[i].updatePos("w");
-                //                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
-                //                    mapArr[units[i].XPos, units[i].YPos + 1] = ".";
-                //                }
-                //                break;
-                //        }
+                                }
+                                break;
+                            case 2:
+                                {
+                                    units[i].updatePos("s");
+                                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
+                                    mapArr[units[i].XPos, units[i].YPos - 1] = ".";
+                                }
+                                break;
+                            case 3:
+                                {
+                                    units[i].updatePos("w");
+                                    mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
+                                    mapArr[units[i].XPos, units[i].YPos + 1] = ".";
+                                }
+                                break;
+                        }
 
-                //    }
-                //}
-                if(units[i].isDead() == true)
+                    }
+                }
+
+                if (units[i].isDead() == true)
                 {
                     mapArr[units[i].XPos, units[i].YPos] = ".";
                 }
