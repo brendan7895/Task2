@@ -39,6 +39,14 @@ namespace Task1
                 cmbInfo.Items.Add(Game.UnitsString(i));
             }
 
+            for(int i = 0; i < Game.numBuilding(); i++)
+            {
+                cmbInfo.Items.Add(Game.BuildInfo(i));
+            }
+
+            Game.PlaceNewUnit(time);
+            Game.PlaceResource(time);
+
             time++;
         }
 

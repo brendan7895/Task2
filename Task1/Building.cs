@@ -7,14 +7,20 @@
         protected int health;
         protected string team;
         protected string symbol;
+        protected string type;
 
-        public Building(int xPos, int yPos, int health, string team, string symbol)
+        public int XPos { get => xPos;}
+        public int YPos { get => yPos;}
+        public string Symbol { get => symbol; set => symbol = value; }
+
+        public Building(int xPos, int yPos, int health, string team, string symbol, string type)
         {
             this.xPos = xPos;
             this.yPos = yPos;
             this.health = health;
             this.team = team;
-            this.symbol = symbol;
+            this.Symbol = symbol;
+            this.type = type;
         }
 
         public abstract bool isDead();

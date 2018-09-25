@@ -4,11 +4,15 @@ namespace Task1
     public partial class Map
     {
         Random rand = new Random();
+
         int numUnits = 5; //number of units to be placed
+        int numBuildings = 3; //number of resource buildings
+
         string[,] mapArr = new string[20, 20]; //map array
 
-        public Unit[] units; 
-       
+        Unit[] units;
+        Building[] buildings;
+
         public void generate()
         {
             for (int i = 0; i < 20; i++) //populates the map array
@@ -20,6 +24,7 @@ namespace Task1
             }
 
             units = new Unit[numUnits];
+            buildings = new Building[numBuildings];
 
             for (int i = 0; i < numUnits; i++) //creates and places the units in the map
             {
@@ -37,6 +42,46 @@ namespace Task1
                     units[i] = new RangedUnit(x, y, 100, 100, 1, 10, 10, Teams(), "W", "Ranged");
                 }
                 mapArr[units[i].XPos, units[i].YPos] = units[i].Team;
+            }
+
+            for (int i = 0; i < buildings.Length; i++)
+            {
+                int x = rand.Next(0, 20);
+                int y = rand.Next(0, 20);
+
+                if (mapArr[x, y] == ".")
+                {
+                    x = rand.Next(0, 20);
+                    y = rand.Next(0, 20);
+                }
+                int teamRand = rand.Next(0, 2);
+                int buildingType = rand.Next(0, 2);
+
+                if (teamRand == 0)
+                {
+                    if (buildingType == 0)
+                    {
+                        buildings[i] = new ResourceBuilding(x, y, 100, "W", "R", 3, 5, "Resource");
+                    }
+                    else
+                    {
+                        buildings[i] = new FactoryBuilding(x, y, 100, "W", "F", 5, 5, 1, "Factory");
+                    }
+                }
+                if (teamRand == 1)
+                {
+                    if (buildingType == 0)
+                    {
+                        buildings[i] = new ResourceBuilding(x, y, 100, "F", "R", 3, 5, "Resource");//🏙️🏠
+                    }
+                    else
+                    {
+                        buildings[i] = new FactoryBuilding(x, y, 100, "F", "F", 5, 5, 1, "Factory");
+                    }
+                }
+
+                mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
+
             }
 
         }
@@ -151,6 +196,10 @@ namespace Task1
         {
             return units.Length;
         }
+        public int numBuild()
+        {
+            return numBuildings;
+        }
         
         public string Teams()
         {
@@ -185,6 +234,65 @@ namespace Task1
         public string UnitsCombo(int i)
         {
             return units[i].ToString();
+        }
+
+        public string BuildingCombo(int i)
+        {
+            return buildings[i].ToString();
+        }
+
+        int arraySize;
+
+        public void placeNewUnit(int counter)
+        {
+            arraySize = units.Length + 1;
+            for (int i = 0; i < numBuildings - 1; i++)
+            {
+                string buildingType = buildings[i].GetType().ToString();
+                string[] splitBuilding = buildingType.Split('.');
+                buildingType = splitBuilding[splitBuilding.Length - 1];
+
+                if (buildingType == "FactoryBuilding")
+                {
+                    FactoryBuilding temp = (FactoryBuilding)buildings[i];
+
+                    if (counter % temp.UnitTick == 0)
+                    {
+                        Array.Resize(ref units, arraySize);
+                        units[arraySize - 1] = temp.SpawnUnit(counter);
+
+                        mapArr[buildings[i].XPos + 1, buildings[i].YPos] = units[i].Symbol;
+
+                    }
+                }
+            }
+        }
+
+        public void PlaceNewResource(int counter) //places the resource on the map
+        {
+            for (int i = 0; i < numBuildings - 1; i++)
+            {
+                string buildingType = buildings[i].GetType().ToString();
+                string[] splitBuilding = buildingType.Split('.');
+                buildingType = splitBuilding[splitBuilding.Length - 1];
+
+                if (buildingType == "ResourceBuilding")
+                {
+                    ResourceBuilding temp = (ResourceBuilding)buildings[i];
+                    temp.Resources(counter);
+
+                    if (temp.Resources(counter - 1) == true)
+                    {
+                        int x = rand.Next(0, 20);
+                        int y = rand.Next(0, 20);
+
+                        if (mapArr[x, y] == ".")
+                        {
+                            mapArr[x, y] = "x";
+                        }
+                    }
+                }
+            }
         }
     }
 }

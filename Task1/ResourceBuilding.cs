@@ -6,7 +6,7 @@
         private int resourcesTick; //enter tick value in seconds
         private int total;
 
-        public ResourceBuilding(int xPos, int yPos, int health, string team, string symbol, int resourcesTick, int total, string type) : base(xPos, yPos, health, team, symbol)
+        public ResourceBuilding(int xPos, int yPos, int health, string team, string symbol, int resourcesTick, int total, string type) : base(xPos, yPos, health, team, symbol, type)
         {
             this.type = type;
             this.resourcesTick = resourcesTick;
@@ -27,7 +27,7 @@
 
         public override string ToString()
         {
-            return symbol + "," + xPos + "," + yPos + "," + health + "," + type;
+            return type + ", " + symbol + "," + XPos + "," + YPos + "," + health;
         }
 
         public bool Resources(int counter)

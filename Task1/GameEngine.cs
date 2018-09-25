@@ -21,9 +21,30 @@
         {
             return gameMap.UnitsCombo(i);
         }
+
+        public string BuildInfo(int i)
+        {
+            return gameMap.BuildingCombo(i);
+        }
+
         public int numUnit()
         {
             return gameMap.numUnit();
+        }
+
+        public int numBuilding()
+        {
+            return gameMap.numBuild();
+        }
+
+        public void PlaceNewUnit(int counter)
+        {
+            gameMap.placeNewUnit(counter);
+        }
+
+        public void PlaceResource(int counter)
+        {
+            gameMap.PlaceNewResource(counter);
         }
     }
 }
