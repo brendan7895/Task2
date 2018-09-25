@@ -74,6 +74,7 @@ namespace Task1
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+
             lblMap.Text = "";
             Game.ReadAll();
             lblMap.Text = Game.playGame();

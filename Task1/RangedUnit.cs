@@ -44,7 +44,7 @@ namespace Task1
             {
                 Symbol = "Dead";
             }
-            return name + ", " + symbol + ", " + team + ", " + xPos + ", " + yPos + ", " + HP;
+            return name + "," + symbol + "," + team + "," + xPos + "," + yPos + "," + HP;
         }
 
         public override void SaveUnit()

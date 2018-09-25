@@ -29,7 +29,7 @@ namespace Task1
 
         public override string ToString()
         {
-            return type + ", " + symbol + "," + XPos + "," + YPos + "," + health;
+            return type + "," + symbol + "," + XPos + "," + YPos + "," + health;
         }
 
         public bool Resources(int counter)
