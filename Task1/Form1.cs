@@ -66,5 +66,26 @@ namespace Task1
         {
 
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Game.SaveAll();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            lblMap.Text = "";
+            Game.ReadAll();
+            lblMap.Text = Game.playGame();
+
+            for (int i = 0; i < Game.numUnit(); i++) //add units to the combo box
+            {
+                cmbInfo.Items.Add(Game.UnitsString(i));
+            }
+            for (int i = 0; i < Game.numBuilding(); i++)
+            {
+                cmbInfo.Items.Add(Game.BuildInfo(i));
+            }
+        }
     }
 }

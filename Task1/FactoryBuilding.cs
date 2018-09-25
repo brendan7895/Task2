@@ -1,4 +1,6 @@
-﻿namespace Task1
+﻿using System.IO;
+
+namespace Task1
 {
     public class FactoryBuilding : Building
     {
@@ -75,6 +77,21 @@
                 sym = "M";
             }
             return sym;
+        }
+
+        public override void SaveBuilding()
+        {
+            if (Directory.Exists("saves") != true)
+            {
+                Directory.CreateDirectory("saves");
+
+            }
+
+            FileStream build = new FileStream("saves/BuildingSave.file", FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(build);
+            writer.WriteLine(ToString());
+            writer.Close();
+            build.Close();
         }
     }
 }

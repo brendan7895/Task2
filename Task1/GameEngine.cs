@@ -46,5 +46,15 @@
         {
             gameMap.PlaceNewResource(counter);
         }
+
+        public void SaveAll()
+        {
+            gameMap.Save();
+        }
+
+        public void ReadAll()
+        {
+            gameMap.Read();
+        }
     }
 }

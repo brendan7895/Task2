@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Task1
 {
@@ -44,6 +45,21 @@ namespace Task1
                 Symbol = "Dead";
             }
             return name+ ", " + symbol + ", " + team + ", " + xPos + ", " + yPos + ", "  + HP;
+        }
+
+        public override void SaveUnit()
+        {
+            if (Directory.Exists("saves") != true)
+            {
+                Directory.CreateDirectory("saves");
+
+            }
+
+            FileStream file = new FileStream("saves/UnitSave.file", FileMode.Append, FileAccess.Write);
+            StreamWriter writer = new StreamWriter(file);
+            writer.WriteLine(ToString());
+            writer.Close();
+            file.Close();
         }
     }
 }

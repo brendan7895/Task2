@@ -41,6 +41,8 @@ namespace Task1
         public abstract bool isDead();
         public abstract string ToString();
 
+        public abstract void SaveUnit();
+
         public void updatePos(string direction) //changes the x or y value based on movement
         {
             switch (direction)

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+
 namespace Task1
 {
     public partial class Map
@@ -293,6 +295,95 @@ namespace Task1
                     }
                 }
             }
+        }
+
+        public void Save() //calls save methods from unit and building and saves to files
+        {
+            FileStream file = new FileStream("saves/UnitSave.file", FileMode.Create, FileAccess.Write);
+            FileStream build = new FileStream("saves/BuildingSave.file", FileMode.Create, FileAccess.Write);
+            file.Close();
+            build.Close();
+
+            for (int i = 0; i < units.Length; i++)
+            {
+                units[i].SaveUnit();
+            }
+
+            for (int i = 0; i < buildings.Length; i++)
+            {
+                buildings[i].SaveBuilding();
+            }
+        }
+
+        public void Read() //reads in the unit and building files into new arrays
+        {
+
+            FileStream file = new FileStream("saves/UnitSave.file", FileMode.Open, FileAccess.Read);
+            string[] completeFile = File.ReadAllLines("saves/UnitSave.file");
+
+            units = new Unit[completeFile.Length];
+
+
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    mapArr[j, i] = ".";
+                }
+            }
+
+            for (int i = 0; i < completeFile.Length; i++)
+            {
+                string[] unit = completeFile[i].Split(',');
+                string type = unit[0];
+                string symbol = unit[1];
+                string team = unit[2];
+                int x = Convert.ToInt32(unit[3]);
+                int y = Convert.ToInt32(unit[4]);
+                int hp = Convert.ToInt32(unit[5]);
+
+                if (type == "Ranged")
+                {
+                    units[i] = new RangedUnit(x, y, hp, 100, 1, 10, 5, team, symbol, type);
+                }
+                if (type == "Melee")
+                {
+                    units[i] = new MeleeUnit(x, y, hp, 100, 1, 10, 10, team, symbol, type);
+                }
+
+                mapArr[units[i].XPos, units[i].YPos] = units[i].Symbol;
+            }
+
+            file.Close();
+
+            FileStream building = new FileStream("saves/BuildingSave.file", FileMode.Open, FileAccess.Read);
+            string[] buildingFile = File.ReadAllLines("saves/BuildingSave.file");
+
+            buildings = new Building[buildingFile.Length];
+
+            for (int i = 0; i < buildingFile.Length; i++)
+            {
+                string[] buildArr = buildingFile[i].Split(',');
+                string bSymbol = buildArr[1];
+                string bType = buildArr[0];
+                int bX = Convert.ToInt32(buildArr[2]);
+                int bY = Convert.ToInt32(buildArr[3]);
+                int bHp = Convert.ToInt32(buildArr[4]);
+                
+
+                if (bType == "Resource") //type + ", " + symbol + "," + XPos + "," + YPos + "," + health;
+                {
+                    buildings[i] = new ResourceBuilding(bX, bY, bHp, bSymbol, "R", 3, 5, bType);
+                }
+                if (bType == "Factory")
+                {
+                    buildings[i] = new FactoryBuilding(bX, bY, bHp, bSymbol, "F", 5, 5, 1, bType);
+                }
+
+                mapArr[buildings[i].XPos, buildings[i].YPos] = buildings[i].Symbol;
+            }
+            building.Close();
+
         }
     }
 }

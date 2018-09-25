@@ -25,5 +25,6 @@
 
         public abstract bool isDead();
         public abstract string ToString();
+        public abstract void SaveBuilding();
     }
 }
